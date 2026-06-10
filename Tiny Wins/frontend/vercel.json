@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://your-tinywins-backend-url.onrender.com/api/:path*"
+      "destination": "https://your-tinywins-backend-url.onrender.com"
     },
     {
       "source": "/((?!api/).*)",
