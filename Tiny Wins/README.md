@@ -103,17 +103,30 @@ TinyWins is configured with `vite-plugin-pwa`. When built (`npm run build`), Vit
 
 ## 📄 Deployment Guidelines
 
+### Database Setup (Supabase)
+1. Create a new project on [Supabase](https://supabase.com/).
+2. Navigate to the **SQL Editor** in the Supabase Dashboard.
+3. Copy the contents of `backend/src/db/schema.sql` and run it to initialize all tables, row-level security (RLS) policies, and indexes.
+
 ### Backend (Render / Railway)
-1. Set the following environment variables:
+1. Link your GitHub repository to Render and create a new **Web Service**.
+2. Set the following configurations:
+   * **Root Directory**: `backend`
+   * **Build Command**: `npm run build`
+   * **Start Command**: `npm run start`
+3. Set the following environment variables:
    * `NODE_ENV=production`
-   * `JWT_SECRET=your_production_secret`
-   * `DATABASE_URL=your_postgres_database_url`
-   * `OPENAI_API_KEY=your_api_key`
-   * `ENABLE_MOCK_COACH=false`
-2. Set build command: `npm run build`
-3. Set start command: `npm run start`
+   * `JWT_SECRET=your_production_secret` (a secure random string)
+   * `DATABASE_URL=your_supabase_postgres_connection_string` (find this in Supabase under Project Settings > Database)
+   * `ANTHROPIC_API_KEY=your_anthropic_api_key` (if using Claude)
+   * `OPENAI_API_KEY=your_openai_api_key` (if using ChatGPT instead of Claude)
+   * `ENABLE_MOCK_COACH=false` (to enable live AI coach advice)
 
 ### Frontend (Vercel / Netlify)
-1. Point build output directory to `dist`.
-2. Set build command: `npm run build`
-3. Configure URL rewrite redirects in `vercel.json` or `_redirects` to route `/api/*` requests to your hosted backend server.
+1. Link your GitHub repository to Vercel and import the project.
+2. Set the following configurations:
+   * **Root Directory**: `frontend`
+   * **Framework Preset**: `Vite`
+   * **Build Command**: `npm run build`
+   * **Output Directory**: `dist`
+3. Configure URL rewrite redirects in `vercel.json` to route `/api/*` requests to your hosted backend server (e.g. `https://your-backend.onrender.com/api/:path*`).
