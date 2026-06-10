@@ -1,0 +1,25 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build outputs
+dist/
+build/
+.svelte-kit/
+.next/
+out/
+
+# Database and state files
+backend/src/db/local_store.json
+local_store.json
+*.db
+*.sqlite
+
+# Environment variables / secrets
+.env
+.env.local
+.env.*.local
+
+# System files
+.DS_Store
+Thumbs.db

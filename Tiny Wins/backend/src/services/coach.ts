@@ -1,10 +1,13 @@
 import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import { db } from '../db/db';
 
-const apiKey = process.env.OPENAI_API_KEY || '';
-const enableMock = process.env.ENABLE_MOCK_COACH === 'true' || !apiKey;
+const openaiApiKey = process.env.OPENAI_API_KEY || '';
+const anthropicApiKey = process.env.ANTHROPIC_API_KEY || '';
+const enableMock = process.env.ENABLE_MOCK_COACH === 'true' || (!openaiApiKey && !anthropicApiKey);
 
-const openai = apiKey ? new OpenAI({ apiKey }) : null;
+const openai = openaiApiKey ? new OpenAI({ apiKey: openaiApiKey }) : null;
+const anthropic = anthropicApiKey ? new Anthropic({ apiKey: anthropicApiKey }) : null;
 
 // Dynamic Mock Coach tips based on user data
 function getMockTip(
@@ -89,7 +92,7 @@ export async function generateCoachAdvice(
     userReflectionsSummary: reflectionText || 'None provided'
   };
 
-  if (enableMock || !openai) {
+  if (enableMock || (!openai && !anthropic)) {
     return getMockTip(category, completionPattern, tone, blocker, type);
   }
 
@@ -103,17 +106,32 @@ export async function generateCoachAdvice(
     Tone: ${promptPayload.preferredTone}
     Recent reflections: ${promptPayload.userReflectionsSummary}`;
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ],
-      max_tokens: 150,
-      temperature: 0.7
-    });
+    if (anthropic) {
+      const modelName = process.env.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20241022';
+      const message = await anthropic.messages.create({
+        model: modelName,
+        max_tokens: 150,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }],
+        temperature: 0.7
+      });
+      const responseText = message.content[0].type === 'text' ? message.content[0].text : '';
+      return responseText || getMockTip(category, completionPattern, tone, blocker, type);
+    } else if (openai) {
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        max_tokens: 150,
+        temperature: 0.7
+      });
 
-    return completion.choices[0].message?.content || getMockTip(category, completionPattern, tone, blocker, type);
+      return completion.choices[0].message?.content || getMockTip(category, completionPattern, tone, blocker, type);
+    }
+
+    return getMockTip(category, completionPattern, tone, blocker, type);
   } catch (err) {
     console.error("AI Coach API call failed. Falling back to mock tip.", err);
     return getMockTip(category, completionPattern, tone, blocker, type);
