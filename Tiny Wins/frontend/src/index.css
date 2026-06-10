@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Core Sunset Themes variables mapping */
+:root {
+  --bg-color: #FDFBF7;
+  --text-color: #3A1C30;
+  --primary-color: #F26C4F;
+  --primary-gradient: linear-gradient(135deg, #F26C4F 0%, #E05624 100%);
+  --secondary-color: #E05624;
+  --accent-color: #FEC84C;
+  --rose-color: #D9838E;
+  --peach-color: #FFDAB9;
+  --card-bg: #FFFFFF;
+  --border-color: #F5EFE3;
+  --nav-bg: #FFFFFF;
+  --text-muted: #7E6575;
+}
+
+body.theme-peach {
+  --bg-color: #FFEBD6;
+  --text-color: #4A2D1D;
+  --primary-color: #E05624;
+  --primary-gradient: linear-gradient(135deg, #E05624 0%, #D9838E 100%);
+  --secondary-color: #D9838E;
+  --accent-color: #F26C4F;
+  --rose-color: #D9838E;
+  --peach-color: #FFEBD6;
+  --card-bg: #FFFFFF;
+  --border-color: #FFDAB9;
+  --nav-bg: #FFFFFF;
+  --text-muted: #8E7365;
+}
+
+body.theme-plum {
+  --bg-color: #3A1C30;
+  --text-color: #FDFBF7;
+  --primary-color: #D9838E;
+  --primary-gradient: linear-gradient(135deg, #D9838E 0%, #F26C4F 100%);
+  --secondary-color: #F26C4F;
+  --accent-color: #FEC84C;
+  --rose-color: #D9838E;
+  --peach-color: #3A1C30;
+  --card-bg: #291221;
+  --border-color: #522F47;
+  --nav-bg: #291221;
+  --text-muted: #B59BAE;
+}
+
+body.theme-cream {
+  --bg-color: #FAF8F5;
+  --text-color: #2C1F16;
+  --primary-color: #E05624;
+  --primary-gradient: linear-gradient(135deg, #E05624 0%, #E6C19E 100%);
+  --secondary-color: #D9838E;
+  --accent-color: #FEC84C;
+  --rose-color: #D9838E;
+  --peach-color: #FFDAB9;
+  --card-bg: #FFFFFF;
+  --border-color: #F5EFE3;
+  --nav-bg: #FFFFFF;
+  --text-muted: #8A7E75;
+}
+
+/* Global Transitions and Scroll Mechanics */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Base custom classes to support color themes dynamically */
+.bg-theme-bg { background-color: var(--bg-color); }
+.text-theme-text { color: var(--text-color); }
+.text-theme-muted { color: var(--text-muted); }
+.bg-theme-card { background-color: var(--card-bg); }
+.border-theme-border { border-color: var(--border-color); }
+.bg-theme-nav { background-color: var(--nav-bg); }
+
+/* Premium Custom gradients and buttons */
+.btn-sunset {
+  background: var(--primary-gradient);
+  color: #FFFFFF;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-sunset:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(242, 108, 79, 0.4);
+}
+
+.btn-sunset:active {
+  transform: translateY(0);
+}
+
+/* Micro-animations and custom transitions */
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hide scrollbar for clean app experience */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
