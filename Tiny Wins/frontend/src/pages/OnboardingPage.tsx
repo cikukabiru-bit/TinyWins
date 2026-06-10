@@ -223,7 +223,7 @@ export const OnboardingPage: React.FC = () => {
 
             const handleSelect = () => {
               if (currentQ.type === 'single' || currentQ.type === 'boolean') {
-                currentQ.setValue(option);
+                currentQ.setValue?.(option);
                 // Auto progression for single choices makes it feel extremely swift!
                 setTimeout(() => {
                   if (step < 10) setStep(step + 1);

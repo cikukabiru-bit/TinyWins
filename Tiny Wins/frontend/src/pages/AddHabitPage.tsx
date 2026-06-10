@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-serif';
-import { useNavigate as useNav } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SunsetButton } from '../components/SunsetButton';
-import { SecurityToggle } from '../components/SecurityToggle';
+import { SecurityToggle } from '../components/SecurityComponents';
 import { ArrowLeft, Target } from 'lucide-react';
 
 export const AddHabitPage: React.FC = () => {
-  const navigate = useNav();
+  const navigate = useNavigate();
   const { fetchWithAuth } = useAuth();
 
   const [name, setName] = useState('');

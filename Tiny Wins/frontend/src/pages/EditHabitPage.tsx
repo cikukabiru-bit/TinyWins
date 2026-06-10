@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SunsetButton } from '../components/SunsetButton';
-import { SecurityToggle } from '../components/SecurityToggle';
+import { SecurityToggle } from '../components/SecurityComponents';
 import { ArrowLeft, Trash2 } from 'lucide-react';
 
 export const EditHabitPage: React.FC = () => {

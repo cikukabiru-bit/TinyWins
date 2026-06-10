@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme, SunsetTheme } from '../context/ThemeContext';
 import { useAppLock } from '../context/AppLockContext';
 import { SunsetButton } from '../components/SunsetButton';
-import { SecurityToggle, PinInput } from '../components/SecurityToggle';
+import { SecurityToggle, PinInput } from '../components/SecurityComponents';
 import { ConsentCard, PrivacyActionCard, DataExportButton, DeleteDataModal } from '../components/PrivacyComponents';
 import { ArrowLeft, Sun, Palette, Lock, Shield, Eye, Trash2, LogOut, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -293,7 +293,7 @@ export const SettingsPage: React.FC = () => {
           <SecurityToggle
             label="Use PIN lock protection"
             checked={pinEnabled}
-            onChange={(checked) => {
+            onChange={(checked: boolean) => {
               if (checked) setIsPinSetupOpen(true);
               else handleDisablePin();
             }}

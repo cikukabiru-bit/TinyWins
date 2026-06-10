@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ProgressRing } from '../components/ProgressRing';
+import { SunsetButton } from '../components/SunsetButton';
 import { HabitCard } from '../components/HabitCards';
 import { InspirationCard } from '../components/InspirationCards';
 import { CoachCard } from '../components/CoachCard';

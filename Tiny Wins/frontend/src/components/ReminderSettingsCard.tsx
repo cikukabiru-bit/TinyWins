@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SunsetButton } from './SunsetButton';
-import { SecurityToggle } from './SecurityToggle';
+import { SecurityToggle } from './SecurityComponents';
 import { Bell, Clock } from 'lucide-react';
 
 interface ReminderSettingsProps {
